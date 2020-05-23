@@ -8,12 +8,26 @@ class ProductFormScreen extends StatefulWidget {
 class _ProductFormScreenState extends State<ProductFormScreen> {
   final _priceFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
+  final _imageUrlFocusNode = FocusNode();
+  final _imageUrlController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _imageUrlFocusNode.addListener(_updateImage);
+  }
+
+  void _updateImage() {
+    setState(() {});
+  }
 
   @override
   void dispose() {
     super.dispose();
     _priceFocusNode.dispose();
     _descriptionFocusNode.dispose();
+    _imageUrlFocusNode.removeListener(_updateImage);
+    _imageUrlFocusNode.dispose();
   }
 
   @override
@@ -28,9 +42,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
           child: ListView(
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Título',
-                ),
+                decoration: InputDecoration(labelText: 'Título'),
                 textInputAction: TextInputAction.next,
                 autofocus: true,
                 onFieldSubmitted: (_) {
@@ -38,9 +50,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Preço',
-                ),
+                decoration: InputDecoration(labelText: 'Preço'),
                 textInputAction: TextInputAction.next,
                 focusNode: _priceFocusNode,
                 onFieldSubmitted: (_) {
@@ -48,13 +58,48 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Descrição',
-                ),
+                decoration: InputDecoration(labelText: 'Descrição'),
                 maxLines: 3,
                 keyboardType: TextInputType.multiline,
                 // textInputAction: TextInputAction.next,
                 focusNode: _descriptionFocusNode,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: 'URL da Imagem'),
+                      keyboardType: TextInputType.url,
+                      textInputAction: TextInputAction.done,
+                      focusNode: _imageUrlFocusNode,
+                      controller: _imageUrlController,
+                    ),
+                  ),
+                  Container(
+                    height: 100,
+                    width: 100,
+                    margin: EdgeInsets.only(
+                      top: 8,
+                      left: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 1,
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: _imageUrlController.text.isEmpty
+                        ? Text('Informe a URL')
+                        : FittedBox(
+                            child: Image.network(
+                              _imageUrlController.text,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                  ),
+                ],
               ),
             ],
           ),
