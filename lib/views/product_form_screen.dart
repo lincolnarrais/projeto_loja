@@ -140,6 +140,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
               TextFormField(
                 initialValue: _formData['price'].toString(),
                 decoration: InputDecoration(labelText: 'Preço'),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 textInputAction: TextInputAction.next,
                 focusNode: _priceFocusNode,
                 onFieldSubmitted: (_) {
@@ -219,11 +220,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       alignment: Alignment.center,
                       child: _imageUrlController.text.isEmpty
                           ? Text('Informe a URL')
-                          : FittedBox(
-                              child: Image.network(
-                                _imageUrlController.text,
-                                fit: BoxFit.cover,
-                              ),
+                          : Image.network(
+                              _imageUrlController.text,
+                              fit: BoxFit.cover,
                             ),
                     ),
                   ),
