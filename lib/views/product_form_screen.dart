@@ -202,28 +202,30 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       },
                     ),
                   ),
-                  Container(
-                    height: 100,
-                    width: 100,
-                    margin: EdgeInsets.only(
-                      top: 8,
-                      left: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 1,
+                  Expanded(
+                    child: Container(
+                      height: 100,
+                      width: 100,
+                      margin: EdgeInsets.only(
+                        top: 8,
+                        left: 10,
                       ),
-                    ),
-                    alignment: Alignment.center,
-                    child: _imageUrlController.text.isEmpty
-                        ? Text('Informe a URL')
-                        : FittedBox(
-                            child: Image.network(
-                              _imageUrlController.text,
-                              fit: BoxFit.cover,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: _imageUrlController.text.isEmpty
+                          ? Text('Informe a URL')
+                          : FittedBox(
+                              child: Image.network(
+                                _imageUrlController.text,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
+                    ),
                   ),
                 ],
               ),
